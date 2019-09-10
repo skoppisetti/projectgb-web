@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <GenerateProgramFile>false</GenerateProgramFile>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
@@ -14,9 +23,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.App">
+      <PrivateAssets Condition="'%(PackageReference.Version)' == ''">all</PrivateAssets>
+      <Publish Condition="'%(PackageReference.Version)' == ''">true</Publish>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
+    <PackageReference Include="Nuke.Common" Version="0.22.0-alpha0048" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +37,34 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <None Remove="build\.editorconfig" />
+    <None Remove="build\obj\_build.csproj.nuget.g.props" />
+    <None Remove="build\obj\_build.csproj.nuget.cache" />
+    <None Remove="build\obj\_build.csproj.nuget.g.targets" />
+    <None Remove="build\obj\Debug\_build.dll" />
+    <None Remove="build\obj\Debug\_build.assets.cache" />
+    <None Remove="build\obj\Debug\_build.pdb" />
+    <None Remove="build\obj\Debug\_build.csprojAssemblyReference.cache" />
+    <None Remove="build\obj\Debug\_build.AssemblyInfoInputs.cache" />
+    <None Remove="build\obj\Debug\_build.csproj.FileListAbsolute.txt" />
+    <None Remove="build\obj\Debug\_build.csproj.CoreCompileInputs.cache" />
+    <None Remove="build\bin\Debug\_build.dll" />
+    <None Remove="build\bin\Debug\_build.pdb" />
+    <Content Remove="build\obj\project.assets.json" />
+    <Content Remove="build\obj\_build.csproj.nuget.dgspec.json" />
+    <Content Remove="build\bin\Debug\_build.runtimeconfig.dev.json" />
+    <Content Remove="build\bin\Debug\_build.runtimeconfig.json" />
+    <None Remove="build.sh" />
+    <None Remove="build.ps1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="build\Build.cs" />
+    <Compile Remove="build\obj\Debug\_build.AssemblyInfo.cs" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->

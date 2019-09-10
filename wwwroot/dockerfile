@@ -1,0 +1,24 @@
+# FROM
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
+
+# MAINTAINER
+MAINTAINER Suresh Koppisetti
+
+# COPY
+COPY ./var/www
+
+# WORKDIR
+WORKDIR /var/www
+
+# RUN
+RUN dotnet restore
+
+# EXPOSE
+EXPOSE 8080
+
+# ENTRYPOINT
+ENTRYPOINT ["dotnet", "projectgb-web.dll"]
+
+# ENV
+
+# VOLUME

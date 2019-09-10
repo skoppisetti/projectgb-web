@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using projectgb_web.DataProviders;
 using projectgb_web.Models;
+using projectgb_web.Repositories;
 using projectgb_web.Services;
 
 namespace projectgb_web
@@ -25,7 +26,9 @@ namespace projectgb_web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddScoped<IDataProvider<GbWorkout>, MockDataProvider>();
+            // services.AddScoped<IDataProvider<GbWorkout>, MockDataProvider>();
+            services.AddScoped<IDataProvider<GbWorkout>, WorkoutDataProvider>();
+            services.AddSingleton<IDataRepository<GbWorkout>, WorkoutDataRepository>();
             services.AddSingleton<DbService>();
 
             // In production, the Angular files will be served from this directory

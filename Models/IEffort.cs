@@ -1,6 +1,10 @@
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace projectgb_web.Models
 {
-    public interface IEffort
+    [BsonDiscriminator(RootClass = true)]
+    [BsonKnownTypes(typeof(GbReps), typeof(GbDuration))]
+    public class IEffort
     {
 
     }
