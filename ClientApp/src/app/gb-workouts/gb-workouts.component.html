@@ -1,26 +1,23 @@
-<!--<mat-card>Simple card</mat-card>-->
-
-
-
-<!--
-<div class="ui card" *ngFor="let workout of workouts">
-  <div class="image">
-    <img src="../../assets/images/workout.jpg">
-  </div>
-  <div class="content">
-    <div class="header">{{workout.name}}</div>
-    <a (click)="showWorkoutDetail()"><i class="top floated ellipsis horizontal icon"></i></a>
-    <div class="description">
-      {{workout.description}}
-    </div>
-  </div>
-  <div class="extra content">
-    <div class="ui orange label" *ngFor="let tag of workout.tags">
-      {{tag}}
-    </div>
-  </div>
-</div>
-<div class="ui modal">
-  <app-gb-workout-detail></app-gb-workout-detail>
-</div>
--->
+<mat-card class="workout-card" *ngFor="let workout of workouts">
+  <mat-card-header>
+    <mat-card-title>{{workout.name}}</mat-card-title>
+  </mat-card-header>
+  <mat-chip-list>
+    <mat-chip color="accent" *ngFor="let tag of workout.tags">{{tag}}</mat-chip>
+  </mat-chip-list>
+  <img mat-card-image src="../../assets/images/workout.jpg" alt="Power Lifting">
+  <mat-card-content>
+    <p>
+        {{workout.description}}
+    </p>
+    <p>
+      Routine:
+      <div *ngFor="let station of workout.workoutRoutine.workoutStations">
+        {{station.exercise.name}}
+      </div>
+    </p>
+    <button mat-fab color="primary" style="float: right">
+      <mat-icon>Edit</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>
